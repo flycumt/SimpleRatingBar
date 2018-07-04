@@ -1,0 +1,81 @@
+adb logcat > F:\log.txt
+
+adb logcat -d -f /sdcard/log.txt
+adb pull /sdcard/log.txt F:\
+
+adb push C:\Users\lf8207\Desktop\packages.xml /data/system/
+
+adb uninstall com.arcsoft.picaction.app
+
+/data/app(apk file)
+/system/app/(apk file)
+/data/data/(data file)
+rm -rf com.arcsoft.picaction.app
+
+首先用腾讯手机管家-工具箱-KingRoot 破解获取 root权限。
+
+以下方法可以解决 Push 文件到System
+
+进入adb shell之后:  
+
+su root
+
+#mount -o remount,rw rootfs /system/
+
+#chmod 777 /system/
+
+ #chmod 777 /system/lib/
+
+#chmod 777 /system/app/
+
+同理可以让某个apk的lib目录可以写入
+
+
+adb remount
+ 
+su root
+
+#mount -o remount,rw rootfs /system/
+
+#chmod 777 /system/
+
+#chmod 777 /system/app/
+
+#chmod 777 /data/
+
+#chmod 777 /data/data
+
+#chmod 777 /data/data/com.arcosft.app.picaction
+
+#chmod 777 /data/data/com.arcosft.app.picaction/lib
+
+
+
+adb push libarcsoft_picaction.so  /data/data/com.arcosft.app.picaction/lib
+
+
+
+adb shell su root mount -o remount,rw rootfs /system/ 
+
+adb shell su root chmod 777 /system/ 
+
+adb shell su root chmod 777 /system/lib/ 
+
+adb shell su root chmod 777 /system/app/
+
+adb remount
+
+adb shell rm  /system/app/PicAction.apk
+
+adb uninstall com.arcsoft.picaction.app
+
+
+adb reboot
+
+pause
+
+
+root:
+adb remount
+adb shell su -c setenforce 0
+pause
